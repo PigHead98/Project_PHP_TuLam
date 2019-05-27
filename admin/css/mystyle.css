@@ -1,0 +1,14 @@
+.message{display: inline-block;}
+.message a{
+	padding: 8px 12px;
+    border-radius: 50%;
+    background: red;
+    color: #fff;
+    margin: 5px 1px;
+    display: inline-block;}
+}
+.main-color{  }  
+.main-color tr{ background: blue!important;
+    color: white!important; }
+
+    

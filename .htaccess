@@ -1,0 +1,62 @@
+DirectoryIndex index.html index.php 
+RewriteEngine on
+Options +FollowSymLinks
+Options All -Indexes
+AddDefaultCharset utf-8
+<IfModule mod_deflate.c>
+# Insert filters
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATEs application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/x-httpd-php
+AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+AddOutputFilterByType DEFLATE image/svg+xml
+# Drop problematic browsers
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+# Make sure proxies don't deliver the wrong content
+Header append Vary User-Agent env=!dont-vary
+</IfModule>
+<ifmodule mod_php4.c>
+php_value zlib.output_compression 16386
+</ifmodule>
+<FilesMatch .htaccess>
+Order deny,allow
+Deny from all
+</FilesMatch>
+# cache images and flash content for one month
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf)$">
+Header set Cache-Control "max-age=2592000"
+</FilesMatch>
+# cache text, css, and javascript files for one week
+<FilesMatch ".(js|css|pdf|txt)$">
+Header set Cache-Control "max-age=604800"
+</FilesMatch>
+# cache html and htm files for one day
+<FilesMatch ".(html|htm)$">
+Header set Cache-Control "max-age=43200"
+</FilesMatch>
+
+RewriteEngine on
+<IfModule mod_rewrite.c>
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule trang-chu.html$ index.php [L]
+RewriteRule danh-muc/(.*)-([0-9]+).html$ index.php?cmd=cat&name=$1&id=$2 [L]
+RewriteRule chi-tiet/(.*)-([0-9]+).html$ index.php?cmd=detail&name=$1&id=$2 [L]
+RewriteRule thanh-toan-don-hang/$ index.php?cmd=checkout [L]
+RewriteRule lien-he.html$ index.php?cmd=contect [L]
+RewriteRule gioi-thieu.html$ index.php?cmd=intro [L]
+RewriteRule tuyen-dung.html$ index.php?cmd=recruitment [L]
+RewriteRule phan-phoi.html$ index.php?cmd=distribution [L]
+RewriteRule tu-van.html$ index.php?cmd=advisory [L]
+RewriteRule mua-ban.html$ index.php?cmd=buysell [L]
+</IfModule>
+ 

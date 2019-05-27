@@ -1,0 +1,5 @@
+User-agent: *
+allow: /upload/
+allow: /img/
+Disallow: /.htaccess
+Sitemap: http://kogeda.com/sitemap/sitemap.xml
